@@ -1,0 +1,23 @@
+wordpress:
+  image: wordpress
+  restart: always
+  links:
+    - mysql
+  ports:
+    - 8080:80
+  volumes:
+    - ./wordpress:/var/www/html/
+    - ./plugin:/var/www/html/wp-content/plugins/wptest
+  environment:
+    WORDPRESS_DB_HOST: mysql:3306
+    WORDPRESS_DB_PASSWORD: example
+
+mysql:
+  image: mysql:5.7
+  restart: always
+  ports:
+    - 3306:3306
+  volumes:
+    - ./db:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: example
